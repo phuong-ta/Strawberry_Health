@@ -1,6 +1,3 @@
-from ultralytics import YOLO
-import cv2
-
 
 def detect_objects_in_image(model, image_path):
     results = model.predict(source=image_path, show=False, save=True, save_txt=False)
