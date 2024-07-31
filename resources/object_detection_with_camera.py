@@ -2,6 +2,7 @@ import cv2
 from ultralytics import YOLO
 from resources.mqtt.mqtt_publisher import publish_msg
 
+
 def track_objects(model_path, cam_number):
     # open camera
     cap = cv2.VideoCapture(cam_number)
@@ -26,11 +27,12 @@ def track_objects(model_path, cam_number):
             first_detection = results[0]
             # boxes = first_detection.boxes.xyxy.cpu().numpy()
             class_indices = first_detection.boxes.cls.cpu().numpy().astype(int)
-            trained_model_path = YOLO("/home/iot/Desktop/Strawberry_Health/runs/detect/train4/weights/last.pt")
+            trained_model_path = YOLO(
+                "C:/Users/phuongta/Desktop/ML/Strawberry_Health/runs/detect/train4/weights/last.pt")
             class_names = [trained_model_path.model.names[i] for i in class_indices]
             #print(class_names)
-            if len(class_names)>0:
-                publish_msg(cam_id=cam_number,msg= "".join(class_names))
+            if len(class_names) > 0:
+                publish_msg(cam_id=cam_number, msg="".join(class_names))
             # Break the loop if 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
