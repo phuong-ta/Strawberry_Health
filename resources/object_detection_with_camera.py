@@ -15,24 +15,25 @@ def track_objects(model_path, cam_number):
         if success:
 
             # Run YOLOv8 tracking on the frame, persisting tracks between frames
-            results = model_path.track(frame, persist=True, save=False)
+            results = model_path.track(frame, device=0, persist=True, save=False)
 
             # Visualize the results on the frame
             annotated_frame = results[0].plot()
 
             # Display the annotated frame
-            cv2.imshow("YOLOv8 Tracking", annotated_frame)
+            cv2.imshow("Cam" + str(cam_number), annotated_frame)
 
             # get class name of detected object
             first_detection = results[0]
             # boxes = first_detection.boxes.xyxy.cpu().numpy()
             class_indices = first_detection.boxes.cls.cpu().numpy().astype(int)
-            trained_model_path = YOLO(
-                "C:/Users/phuongta/Desktop/ML/Strawberry_Health/runs/detect/train4/weights/last.pt")
+            trained_model_path = YOLO("C:/Users/phuongta/Desktop/ML/Strawberry_Health/runs/detect/train4/weights/last.pt")
             class_names = [trained_model_path.model.names[i] for i in class_indices]
             #print(class_names)
+            """
             if len(class_names) > 0:
                 publish_msg(cam_id=cam_number, msg="".join(class_names))
+                """
             # Break the loop if 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
