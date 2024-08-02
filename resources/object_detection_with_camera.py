@@ -15,7 +15,7 @@ def track_objects(model_path, cam_number):
         if success:
 
             # Run YOLOv8 tracking on the frame, persisting tracks between frames
-            results = model_path.track(frame, device=0, persist=True, save=False)
+            results = model_path.track(frame, persist=True, save=False)
 
             # Visualize the results on the frame
             annotated_frame = results[0].plot()
@@ -27,7 +27,7 @@ def track_objects(model_path, cam_number):
             first_detection = results[0]
             # boxes = first_detection.boxes.xyxy.cpu().numpy()
             class_indices = first_detection.boxes.cls.cpu().numpy().astype(int)
-            trained_model_path = YOLO("C:/Users/phuongta/Desktop/ML/Strawberry_Health/runs/detect/train4/weights/last.pt")
+            trained_model_path = YOLO("../runs/detect/train4/weights/last.pt")
             class_names = [trained_model_path.model.names[i] for i in class_indices]
             #print(class_names)
             """

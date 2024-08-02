@@ -7,7 +7,7 @@ from threading import Thread
 
 
 # Model
-model_path = YOLO("C:/Users/phuongta/Desktop/ML/Strawberry_Health/runs/detect/train4/weights/last.pt")
+model_path = YOLO("runs/detect/train4/weights/last.pt")
 # Stream
 cam1_id = 0
 cam2_id = 1
